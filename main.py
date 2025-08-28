@@ -3,6 +3,8 @@ from constants import *
 
 def main():
     pygame.init()
+    dt = 0
+    game_clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids Game")
     print("Starting Asteroids!")
@@ -15,6 +17,8 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+        game_clock.tick(60)
+        dt = game_clock.get_time() / 1000.0  # Convert milliseconds to seconds
 
         pygame.display.flip()
 
