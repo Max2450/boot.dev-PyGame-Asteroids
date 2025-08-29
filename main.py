@@ -8,6 +8,11 @@ def main():
     game_clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids Game")
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = updatable, drawable
+
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -19,10 +24,16 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+        
         game_clock.tick(60)
         dt = game_clock.get_time() / 1000.0  # Convert milliseconds to seconds
-        player.update(dt)
-        player.draw(screen)
+        
+        updatable.update(dt)
+        for thing in drawable:
+            thing.draw(screen)
+        # Alternatively, we can use:   
+        # drawable.draw(screen)
+        
         pygame.display.flip()
 
 if __name__ == "__main__":
