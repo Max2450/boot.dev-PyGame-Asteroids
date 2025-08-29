@@ -37,6 +37,15 @@ def main():
         game_clock.tick(60)
         dt = game_clock.get_time() / 1000.0  # Convert milliseconds to seconds
         
+        shot = None
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            shot = player.shoot()
+            if shot:
+                shots.add(shot)
+                updatable.add(shot)
+                drawable.add(shot)
+
         updatable.update(dt)
         for thing in drawable:
             thing.draw(screen)
@@ -49,6 +58,13 @@ def main():
                 pygame.quit()
                 return
         
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    asteroid.kill()
+                    shot.kill()
+                    break
+
         pygame.display.flip()
 
 if __name__ == "__main__":
