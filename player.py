@@ -18,3 +18,11 @@ class Player(CircleShape):
     # Override the draw method to draw the player as a triangle
     def draw(self, screen):
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
+
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_a]:
+            self.rotation -= PLAYER_TURN_SPEED * dt
+        if keys[pygame.K_d]:
+            self.rotation += PLAYER_TURN_SPEED * dt

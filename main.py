@@ -21,6 +21,7 @@ def main():
                 return
         game_clock.tick(60)
         dt = game_clock.get_time() / 1000.0  # Convert milliseconds to seconds
+        player.update(dt)
         player.draw(screen)
         pygame.display.flip()
 
